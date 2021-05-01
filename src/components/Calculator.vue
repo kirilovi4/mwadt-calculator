@@ -63,16 +63,24 @@ export default {
       this.screenData = (Number(this.screenData) / 100).toString();
     },
     divideAction() {
-      this.screenData = (this.previousValue / Number(this.screenData)).toString();
+      const result = (this.previousValue / Number(this.screenData)).toString();
+      fetch(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=÷&result=${result}`);
+      this.screenData = result;
     },
     multiplyAction() {
-      this.screenData = (this.previousValue * Number(this.screenData)).toString();
+      const result = (this.previousValue * Number(this.screenData)).toString();
+      fetch(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=x&result=${result}`);
+      this.screenData = result;
     },
     subtractAction() {
-      this.screenData = (this.previousValue - Number(this.screenData)).toString();
+      const result = (this.previousValue - Number(this.screenData)).toString();
+      fetch(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=-&result=${result}`);
+      this.screenData = result;
     },
     addAction() {
-      this.screenData = (this.previousValue + Number(this.screenData)).toString();
+      const result = (this.previousValue + Number(this.screenData)).toString();
+      fetch(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=+&result=${result}`);
+      this.screenData = result;
     },
     resultAction() {
       if (!this.currentAction || this.screenDataNeedOverwrite) {
