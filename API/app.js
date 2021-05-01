@@ -25,6 +25,6 @@ server.get("/stats", function (request, respond) {
 server.listen(port);
 
 process.on("SIGINT", function () {
-    mongo.Close.catch(reason => console.log(reason));
+    mongo.Close().catch(reason => console.log(reason));
     process.exit();
 })
