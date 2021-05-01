@@ -1,8 +1,18 @@
 <template>
   <div class="calculator-screen">
-    <slot />
+    <span>{{ content }}</span>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    content: {
+      type: String
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .calculator-screen {
