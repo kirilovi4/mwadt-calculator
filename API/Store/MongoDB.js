@@ -18,7 +18,7 @@ async function InsertMany(data){
     await collection.insertMany(data);
 }
 async function Find(){
-    return  await collection.Find().toArray();
+    return  await collection.find().toArray();
 }
 
 async function Close(){

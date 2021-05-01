@@ -1,20 +1,30 @@
-const express=require("express");
-const server=express();
-const port=3080;
+const express = require("express");
+const server = express();
+const port = 3080;
 
-const mongo=require("./Store/MongoDB");
+const mongo = require("./Store/MongoDB");
 
-mongo.Run("WebTechnologiesCourse","Stats").catch(reason => console.log(reason));
+mongo.Run("WebTechnologiesCourse", "Stats").catch(reason => console.log(reason));
 
-server.use(express.static(__dirname+"/dist"));
+server.use(express.json);
 
-server.get("/stats",function (request,respond){
-    respond.send(mongo.Find())
+server.use(express.static(__dirname + "/dist"));
+
+server.get("/stats", function (request, respond) {
+    try {
+        mongo.Find().then(
+            data => respond.json(data),
+        );
+    }
+    catch (err)
+    {
+        console.error(err);
+    }
 })
 
 server.listen(port);
 
-process.on("SIGINT",function (){
+process.on("SIGINT", function () {
     mongo.Close.catch(reason => console.log(reason));
     process.exit();
 })
