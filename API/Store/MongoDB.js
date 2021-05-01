@@ -5,9 +5,9 @@ const client = new mongoClient(url, {useUnifiedTopology: true});
 
 let collection;
 
-async function Run(){
+async function Run(dbName,collectionName){
     await client.connect();
-    collection=client.db("WebTechnologiesCourse").collection("Stats");
+    collection=client.db(dbName).collection(collectionName);
 }
 
 async function InsertOne(data){
