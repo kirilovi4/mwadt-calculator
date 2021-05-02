@@ -1,13 +1,5 @@
 <template>
   <div class="calculator">
-    <History :class="{'hidden': !historyVisible}" />
-    <button
-      class="calculator-history-toggle"
-      @click="historyVisible=!historyVisible"
-    >
-      <span v-if="historyVisible">Hide history</span>
-      <span v-else>Show history</span>
-    </button>
     <Screen :content="screenData" />
     <div class="calculator-body">
       <Button
@@ -22,13 +14,11 @@
 
 <script>
 import buttonsData from '@/data/buttonsData.json'
-import History from './History.vue'
 import Screen from './Screen.vue'
 import Button from './Button.vue'
 
 export default {
   components: {
-    History,
     Screen,
     Button
   },
@@ -38,8 +28,7 @@ export default {
       screenDataNeedOverwrite: false,
       currentAction: null,
       previousValue: null,
-      buttonsData,
-      historyVisible: false
+      buttonsData
     }
   },
   methods: {
@@ -56,22 +45,18 @@ export default {
     },
     divideAction() {
       const result = (this.previousValue / Number(this.screenData)).toString();
-      this.recordOperation(this.previousValue, this.screenData, '÷', result);
       this.screenData = result;
     },
     multiplyAction() {
       const result = (this.previousValue * Number(this.screenData)).toString();
-      this.recordOperation(this.previousValue, this.screenData, 'x', result);
       this.screenData = result;
     },
     subtractAction() {
       const result = (this.previousValue - Number(this.screenData)).toString();
-      this.recordOperation(this.previousValue, this.screenData, '-', result);
       this.screenData = result;
     },
     addAction() {
       const result = (this.previousValue + Number(this.screenData)).toString();
-      this.recordOperation(this.previousValue, this.screenData, '+', result);
       this.screenData = result;
     },
     resultAction() {
@@ -105,18 +90,6 @@ export default {
       this.currentAction = data.actionType;
       this.screenDataNeedOverwrite = true;
       this.previousValue = Number(this.screenData);
-    },
-    recordOperation(value1, value2, operator, result) {
-      const fetchUrl = `/result?value1=${value1}&value2=${value2}&operator=${encodeURIComponent(operator)}&result=${result}`;
-      fetch(fetchUrl);
-    }
-  },
-  watch: {
-    historyVisible(newValue) {
-      if (!newValue) {
-        return;
-      }
-      this.$emit('historyRequest');
     }
   }
 }
@@ -147,26 +120,6 @@ export default {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 100px;
-  }
-  &-history-toggle {
-    max-width: 140px;
-    width: 100%;
-    position: absolute;
-    padding: 8px;
-    background-color: transparent;
-    color: white;
-    font-family: inherit;
-    font-size: 16px;
-    border: none;
-    background-color: $color-red;
-    box-shadow: rgba(0, 0, 0, .15) 1.95px 1.95px 2.6px;
-    border-bottom-right-radius: 5px;
-    cursor: pointer;
-    outline: none;
-    transition: box-shadow .2s ease;
-    &:active {
-      box-shadow: none;
-    }
   }
 }
 </style>
