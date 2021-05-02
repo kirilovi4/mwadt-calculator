@@ -64,22 +64,22 @@ export default {
     },
     divideAction() {
       const result = (this.previousValue / Number(this.screenData)).toString();
-      fetch(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=÷&result=${result}`);
+      fetch(encodeURI(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=÷&result=${result}`));
       this.screenData = result;
     },
     multiplyAction() {
       const result = (this.previousValue * Number(this.screenData)).toString();
-      fetch(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=x&result=${result}`);
+      fetch(encodeURI(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=x&result=${result}`));
       this.screenData = result;
     },
     subtractAction() {
       const result = (this.previousValue - Number(this.screenData)).toString();
-      fetch(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=-&result=${result}`);
+      fetch(encodeURI(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=-&result=${result}`));
       this.screenData = result;
     },
     addAction() {
       const result = (this.previousValue + Number(this.screenData)).toString();
-      fetch(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=+&result=${result}`);
+      fetch(encodeURI(`/result?value1=${this.previousValue}&value2=${this.screenData}&operator=+&result=${result}`));
       this.screenData = result;
     },
     resultAction() {
