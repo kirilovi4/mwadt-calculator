@@ -1,33 +1,41 @@
-const mongoClient = require("mongodb").MongoClient;
+const { MongoClient } = require("mongodb");
+const fs=require("fs");
 
-const url = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false";
-const client = new mongoClient(url, {useUnifiedTopology: true});
+const credentials=fs.readFileSync("API/Store/X509-cert-5440778677966421621.pem")
+
+const uri =
+    'mongodb+srv://cluster0.i3ly5.mongodb.net/myFirstDatabase?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority';
+
+const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    sslKey: credentials,
+    sslCert: credentials
+});
 
 let collection;
 
-async function Run(dbName,collectionName){
+async function Run(dbName, collectionName) {
     await client.connect();
-    collection=client.db(dbName).collection(collectionName);
+    collection = client.db(dbName).collection(collectionName);
 }
 
-async function InsertOne(data){
-    await collection.insertOne(data);
+async function Insert(data) {
+    if (data.isArray) await collection.insertMany(data);
+    else await collection.insertOne(data);
 }
 
-async function InsertMany(data){
-    await collection.insertMany(data);
-}
-async function Find(){
-    return  await collection.find().toArray();
+async function Find() {
+    return await collection.find().toArray();
 }
 
-async function Close(){
+async function Close() {
     await client.close();
 }
-module.exports={
+
+module.exports = {
     Run,
-    InsertOne,
-    InsertMany,
+    Insert,
     Find,
     Close,
 }

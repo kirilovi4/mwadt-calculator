@@ -2,25 +2,25 @@ const express = require("express");
 const server = express();
 const port = 3060;
 const path = require("path");
+const dbName = "WebTechnologiesCourse",
+    collectionName = "Stats";
+const store = require("./Store/MongoDB");
 
-const mongo = require("./Store/MongoDB");
-
-
-server.listen(port,function (){
+server.listen(port, function () {
     console.log(`Start listen ${port}`);
 });
 
-mongo.Run("WebTechnologiesCourse", "Stats").catch(reason => console.log(reason));
+store.Run(dbName, collectionName).catch(reason => console.log(reason));
 
-server.use(express.static(path.join(__dirname,"../dist")));
+server.use(express.static(path.join(__dirname, "../dist")));
 
 server.get("/", function (request, respond) {
-    respond.sendFile(path.join(__dirname,"../dist/index.html"))
+    respond.sendFile(path.join(__dirname, "../dist/index.html"))
 });
 
 server.get("/stats", function (request, respond) {
     try {
-        mongo.Find().then(
+        store.Find().then(
             data => respond.json(data),
         );
     } catch (err) {
@@ -28,7 +28,17 @@ server.get("/stats", function (request, respond) {
     }
 })
 
+server.get("/result", function (request) {
+    let data = {
+        value1: request.query.value1,
+        operator: request.query.operator,
+        value2: request.query.value2,
+        result: request.query.result
+    }
+    store.Insert(data).catch(reason => console.log(reason));
+});
+
 process.on("SIGINT", function () {
-    mongo.Close().catch(reason => console.log(reason));
+    store.Close().catch(reason => console.log(reason));
     process.exit();
 })
