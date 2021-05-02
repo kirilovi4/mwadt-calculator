@@ -1,18 +1,27 @@
 <template>
   <div class="calculator-history">
-    <p class="calculator-history__item" v-for="(item, i) in historyData" :key="i">
+    <p class="calculator-history__item" v-for="item in historyData" :key="item._id">
       {{ item.value1 }} {{ item.operator }} {{ item.value2 }} = {{ item.result }}
     </p>
   </div>
 </template>
 
 <script>
-import historyData from '@/data/historyData.json'
-
 export default {
   data() {
     return {
-      historyData
+      historyData: []
+    }
+  },
+  created() {
+    this.fetchHistoryData();
+    this.$parent.$on('historyRequest', this.fetchHistoryData);
+  },
+  methods: {
+    fetchHistoryData() {
+      fetch('/stats')
+        .then(res => res.json())
+        .then(data => (this.historyData = data));
     }
   }
 }
@@ -41,6 +50,9 @@ export default {
     font-size: 36px;
     line-height: 160%;
     color: rgba(255, 255, 255, .75);
+    & + & {
+      border-top: 2px solid rgba(255, 255, 255, .1);
+    }
   }
 }
 </style>

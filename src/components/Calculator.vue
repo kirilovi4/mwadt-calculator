@@ -110,6 +110,14 @@ export default {
       const fetchUrl = `/result?value1=${value1}&value2=${value2}&operator=${encodeURIComponent(operator)}&result=${result}`;
       fetch(fetchUrl);
     }
+  },
+  watch: {
+    historyVisible(newValue) {
+      if (!newValue) {
+        return;
+      }
+      this.$emit('historyRequest');
+    }
   }
 }
 </script>
