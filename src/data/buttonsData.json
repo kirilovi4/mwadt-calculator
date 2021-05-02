@@ -1,0 +1,78 @@
+[
+  {
+    "actionType": "clear",
+    "symbol": "C"
+  },
+  {
+    "actionType": "signСhange",
+    "symbol": "+/-"
+  },
+  {
+    "actionType": "percent",
+    "symbol": "%"
+  },
+  {
+    "actionType": "divide",
+    "symbol": "÷"
+  },
+  {
+    "actionType": "number",
+    "symbol": "7"
+  },
+  {
+    "actionType": "number",
+    "symbol": "8"
+  },
+  {
+    "actionType": "number",
+    "symbol": "9"
+  },
+  {
+    "actionType": "multiply",
+    "symbol": "x"
+  },
+  {
+    "actionType": "number",
+    "symbol": "4"
+  },
+  {
+    "actionType": "number",
+    "symbol": "5"
+  },
+  {
+    "actionType": "number",
+    "symbol": "6"
+  },
+  {
+    "actionType": "subtract",
+    "symbol": "-"
+  },
+  {
+    "actionType": "number",
+    "symbol": "1"
+  },
+  {
+    "actionType": "number",
+    "symbol": "2"
+  },
+  {
+    "actionType": "number",
+    "symbol": "3"
+  },
+  {
+    "actionType": "add",
+    "symbol": "+"
+  },
+  {
+    "actionType": "number",
+    "symbol": "0"
+  },
+  {
+    "actionType": "number",
+    "symbol": "."
+  },
+  {
+    "actionType": "result",
+    "symbol": "="
+  }
+]

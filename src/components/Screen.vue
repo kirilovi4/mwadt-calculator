@@ -1,5 +1,8 @@
 <template>
-  <div class="calculator-screen">
+  <div
+    class="calculator-screen"
+    :style="`font-size:${content.length > 8 ? 4.5*(24 - content.length) : '72'}px`"
+  >
     <span>{{ content }}</span>
   </div>
 </template>
